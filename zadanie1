@@ -1,0 +1,71 @@
+using Microsoft.Win32.SafeHandles;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Eventing.Reader;
+using System.IO.Ports;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Reflection.Emit;
+using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Lifetime;
+using System.Security.Authentication;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace domashechkaMDK
+{
+    internal class Program
+    {
+        class Book
+        {
+            private string title;
+            private int pages;
+            public string Title
+            {
+                get { return title; }
+                set { title = value; }
+            }
+            public int Pages
+            {
+                get { return pages; }
+                set
+                {
+                    if (value >= 1 && value <= 5000)
+                    {
+                        pages = value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Страниц должно быть от 1 до 5000!");
+                    }
+                }
+            }
+            public Book(string title, int pages)
+            {
+                Title = title;
+                Pages = pages;
+            }
+            public Book(string title) : this(title, 100) { }
+            public Book() : this("Без названия", 1) { }
+            public void Read()
+            {
+                Console.WriteLine($"Читаю книгу {title}, страниц: {pages}.");
+            }
+        }
+        static void Main(string[] args)
+        {
+            Book mybook1 = new Book("Война и Мир", 1200);
+            mybook1.Read();
+            Book mybook2 = new Book("1984");
+            mybook2.Read();
+            Book mybook3 = new Book();
+            mybook3.Read();
+            Console.ReadKey();
+
+        }
+    }
+}
