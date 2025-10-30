@@ -1,0 +1,93 @@
+using Microsoft.Win32.SafeHandles;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Eventing.Reader;
+using System.IO.Ports;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Reflection.Emit;
+using System.Runtime.ExceptionServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Lifetime;
+using System.Security.Authentication;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace domashechkaMDK
+{
+    internal class Program
+    {
+        class Device
+    {
+        private string brand;
+        public string Brand
+        {
+            get { return brand; }
+            set { brand = value; }
+        }
+        public Device(string brand)
+        {
+            Brand = brand;
+        }
+        public void PowerOn()
+        {
+            Console.WriteLine($"{brand}включён.");
+        }
+    }
+        class Laptop : Device
+    {
+        private int ram;
+        private int battery;
+        public int Ram
+    {
+        get { return ram; }
+        set
+        {
+            if (value >= 1 && value <= 64)
+            {
+                ram = value;
+            }
+            else
+            {
+                Console.WriteLine("ОЗУ должнобытьот 1 до 64!");
+            }
+        }
+    }
+        public int Battery
+    {
+        get { return battery; }
+        set
+        {
+            if (value >= 0 && value <= 100)
+            {
+                battery = value;
+            }
+            else
+            {
+                Console.WriteLine("Заряд должен быть от 0 до 100%!");
+            }
+        }
+    }
+        public Laptop(string brand, int ram, int battery) : base(brand)
+    {
+        Ram = ram;
+        Battery = battery;
+    }
+        public void Work()
+    {
+        Console.WriteLine($"Ноутбук{Brand}, ОЗУ: {ram}ГБ, заряд: {battery}%");
+    }
+}
+
+        static void Main(string[] args)
+{
+         Laptop mydevice = new Laptop("Dell", 16, 85);
+        mydevice.PowerOn();
+        mydevice.Work();
+}
+
+    }
+}
